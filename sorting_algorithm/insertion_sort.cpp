@@ -11,10 +11,12 @@
 
 #include <iostream>
 
+#include "sorttesthelper.h"
+
 using namespace std;
 
 
-void InsertionSort(int num[], int len)
+void InsertionSort(int *num, int len)
 {
     int i, j ,temp;
 
@@ -58,14 +60,15 @@ void InsertionSortRecursion(int num[], int len)
 
 int main(int argc, const char *argv[])
 {
-    int num[] = {3, 1, 4, 9, 2, 6, 5, 3};
+    // int num[] = {3, 1, 4, 9, 2, 6, 5, 3};
     //InsertionSort(num, 8);
-    InsertionSortRecursion(num, 8);
-    for (int i = 0; i < 8; i++)
-    {
-        cout << num[i] << " ";
-    }
-    cout << endl;
+    int n = 30;
+    int *num = SortTestHelper::generateRandomArray(n);
+    InsertionSortRecursion(num, n);
+
+    SortTestHelper::printArray(num, n);
+
+    delete[] num;
     
     return 0;
 }
