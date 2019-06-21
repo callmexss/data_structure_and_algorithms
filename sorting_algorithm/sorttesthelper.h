@@ -13,6 +13,7 @@
 #include <ctime>
 #include <cassert>
 #include <string>
+#include <algorithm>
 
 namespace SortTestHelper
 {
@@ -27,6 +28,24 @@ int *generateRandomArray(int n = 10, int rangeL = 0, int rangeR = 100)
     {
         arr[i] = rand() % (rangeR - rangeL + 1) + rangeL;
     }
+    return arr;
+}
+
+int *generateNearlyOrderedArray(int n, int swapTimes)
+{
+    int *arr = new int[n];
+    for (int i = 0; i < n; i++)
+        arr[i] = i;
+
+    srand(time(NULL));
+
+    for (int i = 0; i < swapTimes; i++)
+    {
+        int posx = rand() % n;
+        int posy = rand() % n;
+        std::swap(arr[posx], arr[posy]);
+    }
+
     return arr;
 }
 
@@ -50,7 +69,7 @@ bool isSorted(T arr[], int n)
     }
 
     return true;
-} 
+}
 
 template <typename T>
 void testSort(std::string sortName, void (*sort)(T[], int n), T arr[], int n)
@@ -61,6 +80,13 @@ void testSort(std::string sortName, void (*sort)(T[], int n), T arr[], int n)
     assert(isSorted(arr, n));
 
     std::cout << sortName << " : " << double(endTime - startTime) / CLOCKS_PER_SEC << " s" << std::endl;
+}
+
+int *copyIntArray(int a[], int n)
+{
+    int *arr = new int[n];
+    std::copy(a, a + n, arr);
+    return arr;
 }
 
 } // namespace SortTestHelper

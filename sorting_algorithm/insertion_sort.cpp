@@ -8,53 +8,52 @@
  *
  ***********************************************/
 
-
 #include <iostream>
 
 #include "sorttesthelper.h"
 
 using namespace std;
 
-
-void InsertionSort(int *num, int len)
+template <typename T>
+void InsertionSort(T arr[], int len)
 {
-    int i, j ,temp;
+    int i, j;
+    T temp;
 
     for (i = 1; i < len; i++)
     {
-        temp = num[i];
+        temp = arr[i];
 
-        for (j = i; j > 0 && num[j-1] > temp; j--)
+        for (j = i; j > 0 && arr[j - 1] > temp; j--)
         {
-            num[j] = num[j-1];
+            arr[j] = arr[j - 1];
         }
 
-        num[j] = temp;
-            
+        arr[j] = temp;
     }
-
 }
 
-
-void Insert(int num[], int len)
+template <typename T>
+void Insert(T arr[], int len)
 {
-    int i, temp;
-    temp = num[len];
+    int i;
+    T temp;
+    temp = arr[len];
 
-    for (i = len - 1; i >= 0 && temp < num[i]; i--)
+    for (i = len - 1; i >= 0 && temp < arr[i]; i--)
     {
-        num[i+1] = num[i];
+        arr[i + 1] = arr[i];
     }
-    num[i+1] = temp;
+    arr[i + 1] = temp;
 }
 
-
-void InsertionSortRecursion(int num[], int len)
+template <typename T>
+void InsertionSortRecursion(T arr[], int len)
 {
     if (len > 0)
     {
-        InsertionSortRecursion(num, len - 1);
-        Insert(num, len);
+        InsertionSortRecursion(arr, len - 1);
+        Insert(arr, len);
     }
 }
 
@@ -62,16 +61,17 @@ int main(int argc, const char *argv[])
 {
     // int num[] = {3, 1, 4, 9, 2, 6, 5, 3};
     //InsertionSort(num, 8);
-    int n = 30;
+    int n = 10000;
     int *num = SortTestHelper::generateRandomArray(n);
-    InsertionSortRecursion(num, n);
+    // InsertionSortRecursion(num, n);
 
-    SortTestHelper::printArray(num, n);
+    // SortTestHelper::printArray(num, n);
+
+    SortTestHelper::testSort("Insertion Sort", InsertionSort, num, n);
 
     delete[] num;
-    
+
     return 0;
 }
-
 
 // reference: http://www.cnblogs.com/zhuorongtan/archive/2012/09/22/2698339.html
