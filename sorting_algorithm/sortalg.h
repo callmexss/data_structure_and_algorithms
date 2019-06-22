@@ -55,3 +55,27 @@ void insertionSort(T arr[], int n)
         arr[j] = e;
     }
 }
+
+/**
+ * Bubble Sort
+ */
+template <typename T>
+void bubbleSort(T arr[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        bool swapFlag = false;
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                std::swap(arr[j], arr[j + 1]);
+                swapFlag = true;
+            }
+        }
+        if (!swapFlag)
+        {
+            break;
+        }
+    }
+}
