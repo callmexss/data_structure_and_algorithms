@@ -35,6 +35,46 @@ void selectionSort(vector<T>& vec)
     }
 }
 
+template <typename T>
+void insertionSort(vector<T>& vec)
+{
+    size_t n = vec.size();
+    for (int i = 1; i < vec.size(); ++i)
+    {
+        int j;
+        T e = vec[i];
+        for (j = i; j > 0 && vec[j - 1] > e; --j)
+        {
+            vec[j] = vec[j - 1];
+        }
+        vec[j] = e;
+    }
+}
+
+template <typename T>
+void shellSort(vector<T>& vec)
+{
+    size_t N = vec.size();
+    size_t h = 1;
+
+    while (h < N / 3)
+    {
+        h = 3 * h + 1;
+    }
+
+    while (h >= 1)
+    {
+        for (int i = h; i < N; ++i)
+        {
+            for (int j = i; j < N && vec[j] < vec[j - h]; j -= h) 
+            {
+                swap(vec[j], vec[j - h]);
+            }
+        }
+        h = h / 3;
+    }
+}
+
 
 template <typename T>
 void shellSort(T arr[], int n)
@@ -52,7 +92,7 @@ void shellSort(T arr[], int n)
         {
             for (int j = i; j >= h && arr[j] < arr[j - h];  j -= h)
             {
-                std::swap(arr[j], arr[j - h]);
+                swap(arr[j], arr[j - h]);
             }
         }
         h = h / 3;
@@ -62,10 +102,15 @@ void shellSort(T arr[], int n)
 int main(int argc, char const *argv[])
 {
     /* code */
-    std::vector<int> vec = SortTestHelper::generateNearlyOrderedIntVector();
-    SortTestHelper::testSort("Selection Sort", selectionSort, vec);
-    int n = 1000000;
-    int *arr = SortTestHelper::generateRandomArray(n, 0, 10000);
+    // std::vector<int> vec = SortTestHelper::generateNearlyOrderedIntVector(100000);
+    int n = 10000;
+    std::vector<int> vec = SortTestHelper::generateRandomIntVector(n, 0, n);
+    std::vector<int> vec2 = vec;
+    // SortTestHelper::testSort("Selection Sort", selectionSort, vec);
+    SortTestHelper::testSort("Insertion Sort", insertionSort, vec);
+    SortTestHelper::testSort("Shell Sort", shellSort, vec);
+
+    int *arr = SortTestHelper::generateRandomArray(n, 0, n);
     SortTestHelper::testSort("Shell Sort", shellSort, arr, n);
     return 0;
 }
