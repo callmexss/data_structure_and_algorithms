@@ -21,9 +21,11 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    size_t n = 10000;
+    size_t n = 5000;
     int* arr = SortTestHelper::generateRandomArray(n, 0, n);
     // int* arr = SortTestHelper::generateNearlyOrderedArray(n, 100);
+
+    cout << "---------------------- Array test ---------------------- " << endl;
 
     int* arrSelection = SortTestHelper::copyIntArray(arr, n);
     int* arrInsertion = SortTestHelper::copyIntArray(arr, n);
@@ -42,13 +44,15 @@ int main(int argc, char const *argv[])
     vector<int> vecInsertion = vec;
     vector<int> vecBubble = vec;
     vector<int> vecShell = vec;
-    // vector<int> vecMerge = vec;
+    vector<int> vecMerge = vec;
+
+    cout << "---------------------- Vector test ---------------------- " << endl;
 
     SortTestHelper::testSort("Selection Sort", selectionSort, vecSelection);
     SortTestHelper::testSort("Insertion Sort", insertionSort, vecInsertion);
     SortTestHelper::testSort("Bubble Sort", bubbleSort, vecBubble);
-    // SortTestHelper::testSort("Shell Sort", shellSort, vec);
-    // SortTestHelper::testSort("Merge Sort", mergeSort, vec);
+    SortTestHelper::testSort("Shell Sort", shellSort, vec);
+    SortTestHelper::testSort("Merge Sort", mergeSort, vec);
 
     delete[] arr;
     delete[] arrSelection;

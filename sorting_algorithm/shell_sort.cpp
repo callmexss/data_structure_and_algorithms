@@ -18,40 +18,6 @@
 using namespace std;
 
 template <typename T>
-void selectionSort(vector<T>& vec)
-{
-    size_t n = vec.size();
-    for (int i = 0; i < n; i++)
-    {
-        int minIndex = i;
-        for (int j = i + 1; j < n; j++)
-        {
-            if (vec[j] < vec[minIndex])
-            {
-                minIndex = j;
-            }
-        }
-        swap(vec[i], vec[minIndex]);
-    }
-}
-
-template <typename T>
-void insertionSort(vector<T>& vec)
-{
-    size_t n = vec.size();
-    for (int i = 1; i < n; ++i)
-    {
-        int j;
-        T e = vec[i];
-        for (j = i; j > 0 && vec[j - 1] > e; --j)
-        {
-            vec[j] = vec[j - 1];
-        }
-        vec[j] = e;
-    }
-}
-
-template <typename T>
 void shellSort(vector<T>& vec)
 {
     size_t N = vec.size();
@@ -106,8 +72,6 @@ int main(int argc, char const *argv[])
     int n = 10000;
     std::vector<int> vec = SortTestHelper::generateRandomIntVector(n, 0, n);
     std::vector<int> vec2 = vec;
-    SortTestHelper::testSort("Selection Sort", selectionSort, vec);
-    SortTestHelper::testSort("Insertion Sort", insertionSort, vec);
     SortTestHelper::testSort("Shell Sort", shellSort, vec);
 
     int *arr = SortTestHelper::generateRandomArray(n, 0, n);

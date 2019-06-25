@@ -59,7 +59,7 @@ void insertionSort(T arr[], int n)
     for (int i = 1; i < n; i++)
     {
         T e = arr[i];
-        int j; // will point to the location where e should be at when inner loop is over 
+        int j; // will point to the location where e should be at when inner loop is over
 
         // find a location for e
         for (j = i; j > 0 && arr[j - 1] > e; j--)
@@ -158,6 +158,30 @@ void shellSort(T arr[], int n)
     }
 }
 
+template <typename T>
+void shellSort(std::vector<T> &vec)
+{
+    int n = vec.size();
+    int h = 1;
+
+    while (h < n)
+    {
+        h = h * 3 + 1;
+    }
+
+    while (h >= 1)
+    {
+        for (int i = h; i < n; ++i)
+        {
+            for (int j = i; j >= h && vec[j] < vec[j - h]; j -= h)
+            {
+                std::swap(vec[j], vec[j - h]);
+            }
+        }
+        h = h / 3;
+    }
+}
+
 /**
  * Merge Sort
  */
@@ -186,7 +210,7 @@ void merge(T arr[], int p, int q, int r)
     T *tmp = new T[r - p + 1];
     int i, j, k;
 
-    for (i = p, j = q + 1, k = 0; i <= q && j <= r; )
+    for (i = p, j = q + 1, k = 0; i <= q && j <= r;)
     {
         if (arr[i] < arr[j])
             tmp[k++] = arr[i++];
@@ -206,4 +230,54 @@ void merge(T arr[], int p, int q, int r)
     }
 
     std::copy(tmp, tmp + r - p + 1, arr + p);
+    delete[] tmp;
+}
+
+template <typename T>
+void mergeSort(std::vector<T> &vec)
+{
+    mergeSort(vec, 0, vec.size() - 1);
+}
+
+template <typename T>
+void mergeSort(std::vector<T> &vec, int l, int r)
+{
+    if (l >= r)
+        return;
+    
+    int mid = l + (r - l) / 2;
+    mergeSort(vec, l, mid);
+    mergeSort(vec, mid + 1, r);
+    merge(vec, l, mid, r);
+}
+
+template <typename T>
+void merge(std::vector<T> &vec, int l, int mid, int r)
+{
+    std::vector<T> tmp(&vec[l], &vec[r + 1]);
+
+    int i = l, j = mid + 1;
+    for (int k = l; k <= r; k++)
+    {
+        if (i > mid)
+        {
+            vec[k] = tmp[j - l];
+            j++;
+        }
+        else if (j > r)
+        {
+            vec[k] = tmp[i - l];
+            i++;
+        }
+        else if (tmp[i - l] < tmp[j - l])
+        {
+            vec[k] = tmp[i - l];
+            i++;
+        }
+        else
+        {
+            vec[k] = tmp[j - l];
+            j++;
+        }
+    }
 }

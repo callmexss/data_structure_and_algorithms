@@ -41,7 +41,7 @@ void merge(T *arr, int p, int q, int r)
         for (; i <= q;)
             tmp[k++] = arr[i++];
     }
-    
+
     // SortTestHelper::printArray(tmp, r - p + 1);
 
     copy(tmp, tmp + r - p + 1, arr + p);
@@ -71,15 +71,73 @@ void mergeSort(T arr[], int n)
     mergeSort(arr, 0, n - 1);
 }
 
+template <typename T>
+void merge(std::vector<T> &vec, int l, int mid, int r)
+{
+    std::vector<T> tmp(&vec[l], &vec[r + 1]);
+    SortTestHelper::printVector(tmp);
+
+    int i = l, j = mid + 1;
+    for (int k = l; k <= r; k++)
+    {
+        if (i > mid)
+        {
+            vec[k] = tmp[j - l];
+            j++;
+        }
+        else if (j > r)
+        {
+            vec[k] = tmp[i - l];
+            i++;
+        }
+        else if (tmp[i - l] < tmp[j - l])
+        {
+            vec[k] = tmp[i - l];
+            i++;
+        }
+        else
+        {
+            vec[k] = tmp[j - l];
+            j++;
+        }
+    }
+}
+
+template <typename T>
+void mergeSort(std::vector<T> &vec, int l, int r)
+{
+    if (l >= r)
+        return;
+
+    int mid = l + (r - l) / 2;
+
+    mergeSort(vec, l, mid);
+    mergeSort(vec, mid + 1, r);
+    merge(vec, l, mid, r);
+}
+
+template <typename T>
+void mergeSort(std::vector<T> &vec)
+{
+    mergeSort(vec, 0, vec.size() - 1);
+}
+
 int main(int argc, char const *argv[])
 {
     /* code */
     int n = 10000;
     int *arr = SortTestHelper::generateRandomArray(n, 0, n);
+    vector<int> vec = SortTestHelper::generateRandomIntVector();
     // SortTestHelper::printArray(arr, n);
     mergeSort(arr, n);
     // SortTestHelper::printArray(arr, n);
     SortTestHelper::testSort("Merge Sort", mergeSort, arr, n);
+    SortTestHelper::testSort("Merge Sort", mergeSort, vec);
+
+    cout << "********************************************" << endl;
+    SortTestHelper::printVector(vec);
+    vector<int> tmp(&vec[3], &vec[5]);
+    SortTestHelper::printVector(tmp);
 
     delete[] arr;
     return 0;
