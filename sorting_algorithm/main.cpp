@@ -11,28 +11,49 @@
 
 
 #include <iostream>
+#include <vector>
 
 #include "sortalg.h"
 #include "sorttesthelper.h"
 
+using namespace std;
+
 
 int main(int argc, char const *argv[])
 {
-    size_t n = 100000;
-    // int* arr = SortTestHelper::generateRandomArray(n, 0, n);
-    int* arr = SortTestHelper::generateNearlyOrderedArray(n, 100);
+    size_t n = 10000;
+    int* arr = SortTestHelper::generateRandomArray(n, 0, n);
+    // int* arr = SortTestHelper::generateNearlyOrderedArray(n, 100);
 
     int* arrSelection = SortTestHelper::copyIntArray(arr, n);
     int* arrInsertion = SortTestHelper::copyIntArray(arr, n);
     int* arrBubble = SortTestHelper::copyIntArray(arr, n);
+    int* arrShell = SortTestHelper::copyIntArray(arr, n);
+    int* arrMerge = SortTestHelper::copyIntArray(arr, n);
 
     SortTestHelper::testSort("Selection Sort", selectionSort, arrSelection, n);
     SortTestHelper::testSort("Insertion Sort", insertionSort, arrInsertion, n);
     SortTestHelper::testSort("Bubble Sort", bubbleSort, arrBubble, n);
+    SortTestHelper::testSort("Shell Sort", shellSort, arrShell, n);
+    SortTestHelper::testSort("Merge Sort", mergeSort, arrMerge, n);
+
+    vector<int> vec = SortTestHelper::generateRandomIntVector(n, 0, n);
+    vector<int> vecSelection = vec;
+    vector<int> vecInsertion = vec;
+    vector<int> vecBubble = vec;
+    vector<int> vecShell = vec;
+    // vector<int> vecMerge = vec;
+
+    SortTestHelper::testSort("Selection Sort", selectionSort, vecSelection);
+    SortTestHelper::testSort("Insertion Sort", insertionSort, vecInsertion);
+    SortTestHelper::testSort("Bubble Sort", bubbleSort, vecBubble);
+    // SortTestHelper::testSort("Shell Sort", shellSort, vec);
+    // SortTestHelper::testSort("Merge Sort", mergeSort, vec);
 
     delete[] arr;
     delete[] arrSelection;
     delete[] arrInsertion;
     delete[] arrBubble;
+    delete[] arrMerge;
     return 0;
 }

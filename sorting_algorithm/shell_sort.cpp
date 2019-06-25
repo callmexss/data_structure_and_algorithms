@@ -39,7 +39,7 @@ template <typename T>
 void insertionSort(vector<T>& vec)
 {
     size_t n = vec.size();
-    for (int i = 1; i < vec.size(); ++i)
+    for (int i = 1; i < n; ++i)
     {
         int j;
         T e = vec[i];
@@ -106,7 +106,7 @@ int main(int argc, char const *argv[])
     int n = 10000;
     std::vector<int> vec = SortTestHelper::generateRandomIntVector(n, 0, n);
     std::vector<int> vec2 = vec;
-    // SortTestHelper::testSort("Selection Sort", selectionSort, vec);
+    SortTestHelper::testSort("Selection Sort", selectionSort, vec);
     SortTestHelper::testSort("Insertion Sort", insertionSort, vec);
     SortTestHelper::testSort("Shell Sort", shellSort, vec);
 
