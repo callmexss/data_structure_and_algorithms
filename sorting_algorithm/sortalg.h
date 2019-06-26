@@ -254,6 +254,10 @@ void mergeSort(std::vector<T> &vec, int l, int r)
 template <typename T>
 void merge(std::vector<T> &vec, int l, int mid, int r)
 {
+    /**
+     * Create a sub-vector
+     * ref: https://stackoverflow.com/questions/421573/best-way-to-extract-a-subvector-from-a-vector
+     */
     std::vector<T> tmp(&vec[l], &vec[r + 1]);
 
     int i = l, j = mid + 1;

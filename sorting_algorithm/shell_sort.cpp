@@ -32,7 +32,7 @@ void shellSort(vector<T>& vec)
     {
         for (int i = h; i < N; ++i)
         {
-            for (int j = i; j < N && vec[j] < vec[j - h]; j -= h) 
+            for (int j = i; j >= h && vec[j] < vec[j - h]; j -= h) 
             {
                 swap(vec[j], vec[j - h]);
             }
