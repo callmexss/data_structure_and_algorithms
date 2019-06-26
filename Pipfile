@@ -7,6 +7,7 @@ verify_ssl = true
 
 [packages]
 pyhandy = "*"
+pysnooper = "*"
 
 [requires]
 python_version = "3"
