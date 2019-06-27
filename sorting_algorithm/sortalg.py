@@ -35,8 +35,38 @@ def shell_sort(arr):
     pass
 
 
+def __merge(arr, l, m, r):
+    tmp = arr[l: r + 1]
+
+    i = l
+    j = m + 1
+    for k in range(l, r + 1):
+        if i > m:  # arr[l, m]
+            arr[k] = tmp[j - l]
+            j += 1
+        elif j > r:  # arr[m + 1, r]
+            arr[k] = tmp[i - l]
+            i += 1
+        elif tmp[i - l] < tmp[j - l]:
+            arr[k] = tmp[i - l]
+            i += 1
+        else:
+            arr[k] = tmp[j - l]
+            j += 1
+
+
+def __merge_sort(arr, l, r):
+    if l >= r:
+        return
+
+    mid = (l + r) // 2
+    __merge_sort(arr, l, mid)
+    __merge_sort(arr, mid + 1, r)
+    __merge(arr, l, mid, r)
+
+
 def merge_sort(arr):
-    pass
+    __merge_sort(arr, 0, len(arr) - 1)
 
 
 def __partition(arr, l, r):
