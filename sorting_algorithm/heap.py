@@ -9,6 +9,9 @@ class MaxHeap:
     def size(self):
         return len(self.data) - 1
 
+    def is_empty(self):
+        return len(self.data) == 1
+
     def insert(self, val):
         self.data.append(val)
         self.__shift_up()

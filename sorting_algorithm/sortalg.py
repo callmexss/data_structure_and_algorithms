@@ -1,5 +1,10 @@
 import random
 
+try:
+    from sorting_algorithm import heap
+except ImportError:
+    from . import heap
+
 
 def selection_sort(arr):
     for i in range(len(arr)):
@@ -93,3 +98,12 @@ def __quick_sort(arr, l, r):
 def quick_sort(arr):
     # arr[0, n-1]
     __quick_sort(arr, 0, len(arr) - 1)
+
+
+def heap_sort(arr):
+    max_heap = heap.MaxHeap()
+    for each in arr:
+        max_heap.insert(each)
+
+    for i in range(len(arr) - 1, -1, -1):
+        arr[i] = max_heap.extract_max()
