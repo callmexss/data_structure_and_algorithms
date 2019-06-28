@@ -32,12 +32,14 @@ int main(int argc, char const *argv[])
     int* arrBubble = SortTestHelper::copyIntArray(arr, n);
     int* arrShell = SortTestHelper::copyIntArray(arr, n);
     int* arrMerge = SortTestHelper::copyIntArray(arr, n);
+    int* arrQuick = SortTestHelper::copyIntArray(arr, n);
 
     SortTestHelper::testSort("Selection Sort", selectionSort, arrSelection, n);
     SortTestHelper::testSort("Insertion Sort", insertionSort, arrInsertion, n);
     SortTestHelper::testSort("Bubble Sort", bubbleSort, arrBubble, n);
     SortTestHelper::testSort("Shell Sort", shellSort, arrShell, n);
     SortTestHelper::testSort("Merge Sort", mergeSort, arrMerge, n);
+    SortTestHelper::testSort("Quick Sort", quickSort, arrQuick, n);
 
     vector<int> vec = SortTestHelper::generateRandomIntVector(n, 0, n);
     vector<int> vecSelection = vec;

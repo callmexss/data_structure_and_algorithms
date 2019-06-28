@@ -285,3 +285,41 @@ void merge(std::vector<T> &vec, int l, int mid, int r)
         }
     }
 }
+
+/**
+ * Quick Sort
+ */
+template <typename T>
+void quickSort(T arr[], int n)
+{
+    quickSort(arr, 0, n - 1);
+}
+
+template <typename T>
+void quickSort(T arr[], int l, int r)
+{
+    if (l >= r)
+        return;
+
+    int p = partition(arr, l, r);
+    quickSort(arr, l, p - 1);
+    quickSort(arr, p + 1, r);
+}
+
+template <typename T>
+int partition(T arr[], int l, int r)
+{
+    T pivot = arr[r];
+
+    int i = l;
+    for (int j = l; j <= r - 1; ++j) 
+    {
+        if (arr[j] < pivot)
+        {
+            std::swap(arr[i], arr[j]);
+            i++;
+        }
+    }
+    std::swap(arr[i], arr[r]);
+    return i;
+}

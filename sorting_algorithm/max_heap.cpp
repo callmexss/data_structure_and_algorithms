@@ -42,10 +42,13 @@ public:
         shiftUp(m_count);
     }
 
-    Item extract()
+    Item extractMax()
     {
-        Item ret = data[1];
+        assert(m_count > 0);
+        Item ret = m_data[1];
+        swap(m_data[1], m_data[m_count]);
         m_count--;
+        shiftDown(1);
         return ret;
     }
 
@@ -123,9 +126,25 @@ private:
         }
     }
 
-    void shiftDown()
+    void shiftDown(int k)
     {
-        
+        while (2 * k < m_count)
+        {
+            int j = 2 * k;
+            if (j + 1 <= m_count)  // right child exists
+            {
+                if (m_data[j] < m_data[j + 1])  // set j to the bigger one of two children
+                {
+                    j++;
+                }
+            }
+
+            if (m_data[k] > m_data[j])  // m_data[k] is larger than both its children
+                break;
+                
+            swap(m_data[k], m_data[j]);
+            k = j;
+        }
     }
 
     void putNumberInLine(int num, string &line, int index_cur_level, int cur_tree_width, bool isLeft)
@@ -182,6 +201,12 @@ int main()
         maxHeap.insert(rand() % 100);
     }
     maxHeap.testPrint();
+
+    while (!maxHeap.isEmpty())
+    {
+        cout << maxHeap.extractMax() << " ";
+    }
+    cout << endl;
 
     return 0;
 }
