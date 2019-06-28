@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <vector>
+#include <ctime>
 
 #include "sortalg.h"
 #include "sorttesthelper.h"
@@ -21,7 +22,7 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-    size_t n = 5000;
+    size_t n = 10000;
     int* arr = SortTestHelper::generateRandomArray(n, 0, n);
     // int* arr = SortTestHelper::generateNearlyOrderedArray(n, 100);
 
@@ -33,6 +34,7 @@ int main(int argc, char const *argv[])
     int* arrShell = SortTestHelper::copyIntArray(arr, n);
     int* arrMerge = SortTestHelper::copyIntArray(arr, n);
     int* arrQuick = SortTestHelper::copyIntArray(arr, n);
+    int* arrHeap = SortTestHelper::copyIntArray(arr, n);
 
     SortTestHelper::testSort("Selection Sort", selectionSort, arrSelection, n);
     SortTestHelper::testSort("Insertion Sort", insertionSort, arrInsertion, n);
@@ -40,6 +42,7 @@ int main(int argc, char const *argv[])
     SortTestHelper::testSort("Shell Sort", shellSort, arrShell, n);
     SortTestHelper::testSort("Merge Sort", mergeSort, arrMerge, n);
     SortTestHelper::testSort("Quick Sort", quickSort, arrQuick, n);
+    SortTestHelper::testSort("Heap Sort", heapSort, arrHeap, n);
 
     vector<int> vec = SortTestHelper::generateRandomIntVector(n, 0, n);
     vector<int> vecSelection = vec;
@@ -56,10 +59,25 @@ int main(int argc, char const *argv[])
     SortTestHelper::testSort("Shell Sort", shellSort, vec);
     SortTestHelper::testSort("Merge Sort", mergeSort, vec);
 
+    // cout << "Heap test:" << endl;
+    // MaxHeap<int> maxHeap = MaxHeap<int>(100);
+    // srand(time(NULL));
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     maxHeap.insert(rand() % 100);
+    // }
+
+    // while (!maxHeap.isEmpty())
+    // {
+    //     cout << maxHeap.extractMax() << endl;
+    // }
+
     delete[] arr;
     delete[] arrSelection;
     delete[] arrInsertion;
     delete[] arrBubble;
     delete[] arrMerge;
+    delete[] arrQuick;
+    delete[] arrHeap;
     return 0;
 }

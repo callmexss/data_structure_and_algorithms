@@ -12,6 +12,8 @@
 #include <algorithm>
 #include <vector>
 
+#include "heap.h"
+
 /**
  * Selection Sort
  */
@@ -322,4 +324,22 @@ int partition(T arr[], int l, int r)
     }
     std::swap(arr[i], arr[r]);
     return i;
+}
+
+/**
+ * Heap Sort
+ */
+template <typename T>
+void heapSort(T arr[], int n)
+{
+    MaxHeap<int> maxHeap = MaxHeap<int>(n);
+    for (int i = 0; i < n; ++i)
+    {
+        maxHeap.insert(arr[i]);
+    }
+
+    for (int i = n - 1; i >= 0; --i)
+    {
+        arr[i] = maxHeap.extractMax();
+    }
 }

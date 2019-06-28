@@ -128,7 +128,7 @@ private:
 
     void shiftDown(int k)
     {
-        while (2 * k < m_count)
+        while (2 * k <= m_count)
         {
             int j = 2 * k;
             if (j + 1 <= m_count)  // right child exists
@@ -139,7 +139,7 @@ private:
                 }
             }
 
-            if (m_data[k] > m_data[j])  // m_data[k] is larger than both its children
+            if (m_data[k] >= m_data[j])  // m_data[k] is larger than both its children
                 break;
                 
             swap(m_data[k], m_data[j]);

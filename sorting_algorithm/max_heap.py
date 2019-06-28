@@ -11,7 +11,7 @@ class MaxHeap:
 
     def insert(self, val):
         self.data.append(val)
-        self.__shift_up(val)
+        self.__shift_up()
 
     def extract_max(self):
         assert self.size() > 0
@@ -41,7 +41,7 @@ class MaxHeap:
 
         print()
 
-    def __shift_up(self, val):
+    def __shift_up(self):
         n = self.size()
         while n > 1 and self.data[n] > self.data[n // 2]:
             self.data[n], self.data[n // 2] = self.data[n // 2], self.data[n]
