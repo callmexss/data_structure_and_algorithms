@@ -21,6 +21,21 @@ public:
     {
         m_data = new Item[n + 1];
     }
+
+    MaxHeap(Item arr[], int n): MaxHeap(n)
+    {
+        for (int i = 0; i < n; ++i)
+        {
+            m_data[i + 1] = arr[i];
+        }
+        m_count = n;
+
+        int k = n / 2;  // the first node that is not a leaf
+        while (k >= 1)
+        {
+            shiftDown(k--);
+        }
+    }
     
     ~MaxHeap() { delete[] m_data; }
 

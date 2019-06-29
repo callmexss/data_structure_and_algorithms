@@ -332,11 +332,62 @@ int partition(T arr[], int l, int r)
 template <typename T>
 void heapSort(T arr[], int n)
 {
-    MaxHeap<int> maxHeap = MaxHeap<int>(n);
+    // do __shiftDown operation from the first non-leaf node to root
+    for (int i = (n - 1) / 2; i >= 0; --i)
+    {
+        // std::cout << arr[i] << endl;
+        __shiftDown(arr, n, i);
+    }
+
+    // SortTestHelper::printArray(arr, n);
+
+    for (int i = n - 1; i > 0; --i)
+    {
+        std::swap(arr[0], arr[i]);  /// swap the largest in current heap to the end of the heap
+        __shiftDown(arr, i, 0);
+    }
+}
+
+template <typename T>
+void __shiftDown(T arr[], int n, int k)
+{
+    while (2 * k + 1 < n)
+    {
+        int j = 2 * k + 1;
+        if (j + 1 < n && arr[j] < arr[j + 1])
+        {
+            j++;
+        }
+
+        if (arr[k] > arr[j])
+        {
+            break;
+        }
+
+        std::swap(arr[k], arr[j]);
+        k = j;
+    }
+}
+
+template <typename T>
+void heapSort1(T arr[], int n)
+{
+    MaxHeap<T> maxHeap = MaxHeap<T>(n);
     for (int i = 0; i < n; ++i)
     {
         maxHeap.insert(arr[i]);
     }
+
+    for (int i = n - 1; i >= 0; --i)
+    {
+        arr[i] = maxHeap.extractMax();
+    }
+}
+
+template <typename T>
+void heapSort2(T arr[], int n)
+{
+    MaxHeap<T> maxHeap = MaxHeap<T>(arr, n);
 
     for (int i = n - 1; i >= 0; --i)
     {
