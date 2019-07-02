@@ -17,6 +17,13 @@ template <typename Item>
 class MaxHeap
 {
 public:
+    /**
+     * Start from 1:
+     * - `n` is the count of the elements
+     * - the first non-leaf node = n // 2
+     * - the left child of a node k if exists = 2 * k
+     * - the right child of a node k if exists = 2 * k + 1
+     */
     MaxHeap(int n) : m_count(0), m_capacity(n)
     {
         m_data = new Item[n + 1];
@@ -98,4 +105,5 @@ private:
 template <typename Item>
 class MinHeap
 {
+    // TODO: implement this
 };

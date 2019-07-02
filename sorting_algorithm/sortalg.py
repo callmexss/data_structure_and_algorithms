@@ -7,6 +7,11 @@ except ImportError:
 
 
 def selection_sort(arr):
+    """Selection sort
+    
+    Arguments:
+        arr {list} -- a list of stuff to be sorted
+    """
     for i in range(len(arr)):
         min_index = i
         for j in range(i, len(arr)):
@@ -107,3 +112,6 @@ def heap_sort(arr):
 
     for i in range(len(arr) - 1, -1, -1):
         arr[i] = max_heap.extract_max()
+
+def heap_sort2(arr):
+    pass
