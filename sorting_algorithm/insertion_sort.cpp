@@ -61,8 +61,8 @@ int main(int argc, const char *argv[])
 {
     // int num[] = {3, 1, 4, 9, 2, 6, 5, 3};
     //InsertionSort(num, 8);
-    int n = 10000;
-    int *num = SortTestHelper::generateRandomArray(n);
+    int n = 100000;
+    int *num = SortTestHelper::generateNearlyOrderedArray(n);
     // InsertionSortRecursion(num, n);
 
     // SortTestHelper::printArray(num, n);

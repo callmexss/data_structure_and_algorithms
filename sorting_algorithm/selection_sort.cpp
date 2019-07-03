@@ -53,7 +53,7 @@ int main(int argc, char const *argv[])
     selectionSort(d, 4);
     SortTestHelper::printArray(d, 4);
 
-    n = 100000;
+    n = 10000;
     int *newarr = SortTestHelper::generateRandomArray(n);
     SortTestHelper::testSort("Selection Sort", selectionSort, newarr, n);
 

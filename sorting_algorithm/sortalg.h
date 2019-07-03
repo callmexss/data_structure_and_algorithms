@@ -186,26 +186,9 @@ void shellSort(std::vector<T> &vec)
 
 /**
  * Merge Sort
+ * Notice: for msvc the orders of function declaration doesn't matter
+ *         but for g++, the declaration of a function must before call it
  */
-template <typename T>
-void mergeSort(T arr[], int n)
-{
-    mergeSort(arr, 0, n - 1);
-}
-
-template <typename T>
-void mergeSort(T arr[], int p, int r)
-{
-    if (p >= r)
-        return;
-
-    int q = p + (r - p) / 2;
-    mergeSort(arr, p, q);
-    mergeSort(arr, q + 1, r);
-
-    merge(arr, p, q, r);
-}
-
 template <typename T>
 void merge(T arr[], int p, int q, int r)
 {
@@ -236,21 +219,22 @@ void merge(T arr[], int p, int q, int r)
 }
 
 template <typename T>
-void mergeSort(std::vector<T> &vec)
+void mergeSort(T arr[], int p, int r)
 {
-    mergeSort(vec, 0, vec.size() - 1);
+    if (p >= r)
+        return;
+
+    int q = p + (r - p) / 2;
+    mergeSort(arr, p, q);
+    mergeSort(arr, q + 1, r);
+
+    merge(arr, p, q, r);
 }
 
 template <typename T>
-void mergeSort(std::vector<T> &vec, int l, int r)
+void mergeSort(T arr[], int n)
 {
-    if (l >= r)
-        return;
-    
-    int mid = l + (r - l) / 2;
-    mergeSort(vec, l, mid);
-    mergeSort(vec, mid + 1, r);
-    merge(vec, l, mid, r);
+    mergeSort(arr, 0, n - 1);
 }
 
 template <typename T>
@@ -288,13 +272,42 @@ void merge(std::vector<T> &vec, int l, int mid, int r)
     }
 }
 
+template <typename T>
+void mergeSort(std::vector<T> &vec, int l, int r)
+{
+    if (l >= r)
+        return;
+
+    int mid = l + (r - l) / 2;
+    mergeSort(vec, l, mid);
+    mergeSort(vec, mid + 1, r);
+    merge(vec, l, mid, r);
+}
+
+template <typename T>
+void mergeSort(std::vector<T> &vec)
+{
+    mergeSort(vec, 0, vec.size() - 1);
+}
 /**
  * Quick Sort
  */
 template <typename T>
-void quickSort(T arr[], int n)
+int partition(T arr[], int l, int r)
 {
-    quickSort(arr, 0, n - 1);
+    T pivot = arr[r];
+
+    int i = l;
+    for (int j = l; j <= r - 1; ++j)
+    {
+        if (arr[j] < pivot)
+        {
+            std::swap(arr[i], arr[j]);
+            i++;
+        }
+    }
+    std::swap(arr[i], arr[r]);
+    return i;
 }
 
 template <typename T>
@@ -309,45 +322,14 @@ void quickSort(T arr[], int l, int r)
 }
 
 template <typename T>
-int partition(T arr[], int l, int r)
+void quickSort(T arr[], int n)
 {
-    T pivot = arr[r];
-
-    int i = l;
-    for (int j = l; j <= r - 1; ++j) 
-    {
-        if (arr[j] < pivot)
-        {
-            std::swap(arr[i], arr[j]);
-            i++;
-        }
-    }
-    std::swap(arr[i], arr[r]);
-    return i;
+    quickSort(arr, 0, n - 1);
 }
 
 /**
  * Heap Sort
  */
-template <typename T>
-void heapSort(T arr[], int n)
-{
-    // do __shiftDown operation from the first non-leaf node to root
-    for (int i = (n - 1) / 2; i >= 0; --i)
-    {
-        // std::cout << arr[i] << endl;
-        __shiftDown(arr, n, i);
-    }
-
-    // SortTestHelper::printArray(arr, n);
-
-    for (int i = n - 1; i > 0; --i)
-    {
-        std::swap(arr[0], arr[i]);  /// swap the largest in current heap to the end of the heap
-        __shiftDown(arr, i, 0);
-    }
-}
-
 template <typename T>
 void __shiftDown(T arr[], int n, int k)
 {
@@ -366,6 +348,25 @@ void __shiftDown(T arr[], int n, int k)
 
         std::swap(arr[k], arr[j]);
         k = j;
+    }
+}
+
+template <typename T>
+void heapSort(T arr[], int n)
+{
+    // do __shiftDown operation from the first non-leaf node to root
+    for (int i = (n - 1) / 2; i >= 0; --i)
+    {
+        // std::cout << arr[i] << endl;
+        __shiftDown(arr, n, i);
+    }
+
+    // SortTestHelper::printArray(arr, n);
+
+    for (int i = n - 1; i > 0; --i)
+    {
+        std::swap(arr[0], arr[i]); /// swap the largest in current heap to the end of the heap
+        __shiftDown(arr, i, 0);
     }
 }
 

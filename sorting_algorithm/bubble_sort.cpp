@@ -62,7 +62,8 @@ void bubbleSortOptimize(T arr[], int n)
 int main(int argc, char const *argv[])
 {
     int n = 20000;
-    int *arr = SortTestHelper::generateRandomArray(n);
+    // int *arr = SortTestHelper::generateRandomArray(n);
+    int *arr = SortTestHelper::generateNearlyOrderedArray(n);
     int *arr1 = SortTestHelper::copyIntArray(arr, n);
     SortTestHelper::testSort("Bubble Sort", bubbleSort, arr, n);
     SortTestHelper::testSort("Bubble Sort Optimize", bubbleSortOptimize, arr1, n);

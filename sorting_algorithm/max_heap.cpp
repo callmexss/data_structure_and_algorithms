@@ -3,6 +3,7 @@
 #include <string>
 #include <ctime>
 #include <cassert>
+#include <cmath>
 
 using namespace std;
 
