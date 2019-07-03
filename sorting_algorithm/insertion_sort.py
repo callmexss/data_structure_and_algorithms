@@ -7,6 +7,7 @@
 "   Description: ---
 "        Create: 2017-12-06 22:07:49
 """""""""""""""""""""""""""""""""""""""""""""""
+import pyhandy.pyhandy as handy
 
 
 def insertion_sort(num):
@@ -18,6 +19,10 @@ def insertion_sort(num):
         temp = num[i]
         j = i
 
+        # find a suitable location for num[i]
+        # so move each element in sorted part to its next location
+        # if it is larger than num[i]
+        # and put num[i] after the first element smaller than it
         while(j > 0 and (num[j] < num[j-1])):
             num[j], num[j-1] = num[j-1], num[j]
             j -= 1
@@ -27,6 +32,9 @@ def insertion_sort(num):
     return num
 
 
-num = [3, 1, 4, 9, 2, 6, 5, 3]
-
-print(insertion_sort(num))
+if __name__ == "__main__":
+    rh = handy.RandomHandy()
+    sh = handy.SortHandy()
+    n = 10000
+    sh.testSort(insertion_sort, rh.generate_nearly_ordered_array(n))
+    sh.testSort(insertion_sort, rh.generate_random_array(n, 0, n))
