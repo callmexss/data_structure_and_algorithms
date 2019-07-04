@@ -13,16 +13,20 @@ template <typename Item>
 class IndexMaxHeap
 {
 public:
-    IndexMaxHeap(int capacity) : m_capacity(capacity), m_count(0), m_indexes(0)
+    IndexMaxHeap(int capacity) : m_capacity(capacity), m_count(0)
     {
         m_data = new Item[capacity + 1];
         m_indexes = new int[capacity + 1];
+        m_reverse = new int[capacity + 1];
+        for (int i = 0; i <= capacity; ++i)
+            m_reverse[i] = 0;
     }
 
     ~IndexMaxHeap()
     {
         delete[] m_data;
         delete[] m_indexes;
+        delete[] m_reverse;
     }
 
     int size()
@@ -45,11 +49,12 @@ public:
         assert(m_count + 1 <= m_capacity);
         m_data[++m_count] = item;
         m_indexes[m_count] = m_count;
+        m_reverse[m_count] = m_count;
         shiftUp(m_count);
-        cout << "m_data: ";
-        SortTestHelper::printArray(m_data, m_count + 1);
-        cout << "m_indexes: ";
-        SortTestHelper::printArray(m_indexes, m_count + 1);
+        // cout << "m_data: ";
+        // SortTestHelper::printArray(m_data, m_count + 1);
+        // cout << "m_indexes: ";
+        // SortTestHelper::printArray(m_indexes, m_count + 1);
     }
 
     Item extractMax()
@@ -57,6 +62,8 @@ public:
         assert(m_count > 0);
         Item ret = m_data[m_indexes[1]];
         swap(m_indexes[1], m_indexes[m_count]);
+        m_reverse[m_indexes[1]] = 1;
+        m_reverse[m_indexes[m_count]] = 0;
         m_count--;
         shiftDown(1);
         return ret;
@@ -68,6 +75,8 @@ public:
 
         int ret = m_indexes[1] - 1;
         swap(m_indexes[1], m_indexes[m_count]);
+        m_reverse[m_indexes[1]] = 1;
+        m_reverse[m_indexes[m_count]] = 0;
         m_count--;
         shiftDown(1);
 
@@ -79,8 +88,15 @@ public:
         return m_data[i + 1];
     }
 
+    bool contain(int i)
+    {
+        assert(i + 1 >= 1 && i <= m_capacity);
+        return m_reverse[i + 1] != 0;
+    }
+
     void change(int i, Item newItem)
     {
+        assert(contain(i));
         i += 1;
         m_data[i] = newItem;
 
@@ -95,6 +111,9 @@ public:
         //         return;
         //     }
         // }
+        int j = m_reverse[i];
+        shiftUp(j);
+        shiftDown(j);
     }
 
     void testPrint()
@@ -160,16 +179,19 @@ public:
 private:
     Item *m_data;
     int *m_indexes;
+    int *m_reverse;
     int m_capacity;
     int m_count;
 
     void shiftUp(int n)
     {
-        cout << "n: " << n << " ";
-        cout << m_indexes[n] << m_indexes[n / 2] << endl;
+        // cout << "n: " << n << " ";
+        // cout << m_indexes[n] << m_indexes[n / 2] << endl;
         while (n > 1 && m_data[m_indexes[n]] > m_data[m_indexes[n / 2]])
         {
             swap(m_indexes[n], m_indexes[n / 2]);
+            m_reverse[m_indexes[n]] = n;
+            m_reverse[m_indexes[n / 2]] = n / 2;
             n /= 2;
         }
     }
@@ -191,6 +213,8 @@ private:
                 break;
 
             swap(m_indexes[k], m_indexes[j]);
+            m_reverse[m_indexes[k]] = k;
+            m_reverse[m_indexes[j]] = j;
             k = j;
         }
     }
@@ -238,6 +262,8 @@ int main()
     {
         indexMaxHeap.insert(arr[i]);
     }
+
+    indexMaxHeap.change(3, 10);
 
     indexMaxHeap.testPrint();
 
