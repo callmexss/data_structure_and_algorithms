@@ -49,10 +49,7 @@ int __binarySearch(T arr[], int l, int r, T target)
 template <typename T>
 int binarySearch2(T arr[], int n, T target)
 {
-    int l = 0;
-    int r = n - 1;
-
-    return __binarySearch(arr, l, r, target);
+    return __binarySearch(arr, 0, n - 1, target);
 }
 
 
