@@ -37,7 +37,7 @@ int partition_update(T arr[], int l, int r)
 template <typename T>
 int partition(T arr[], int p, int r)
 {
-    int pivot = arr[r];
+    T pivot = arr[r];
     int i = p;
     // arr[p, r - 1]
     for (int j = p; j <= r - 1; ++j)
@@ -75,7 +75,7 @@ void quickSort(T arr[], int n)
 template <typename T>
 int partition(vector<T> &vec, int l, int r)
 {
-    int pivot = vec[r];
+    T pivot = vec[r];
 
     int i = l;
     for (int j = l; j <= r - 1; ++j)
@@ -118,6 +118,10 @@ int main(int argc, char const *argv[])
     // SortTestHelper::printArray(arr, n);
     vector<int> vec = SortTestHelper::generateRandomIntVector(n, 0, n);
     SortTestHelper::testSort("Quick Sort", quickSort, vec);
+
+    int arrTest[] = {1, 3, 4, 2, 5, 7, 9};
+    // quickSort(arr, sizeof(arrTest)/sizeof(int));
+    SortTestHelper::testSort("Quick Sort", quickSort, arrTest, sizeof(arrTest) / sizeof(int));
     delete[] arr;
     return 0;
 }
