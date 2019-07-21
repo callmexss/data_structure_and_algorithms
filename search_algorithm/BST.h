@@ -138,6 +138,26 @@ public:
         m_root = remove(m_root, key);
     }
 
+    Key floor()
+    {
+        // TODO: imp me
+    }
+
+    Key ceil()
+    {
+        // TODO: imp me
+    }
+
+    int rank(Key key)
+    {
+        // TODO: imp me
+    }
+
+    Key select(int rank)
+    {
+        // TODO: imp me
+    }
+
 private:
     Node *m_root;
     int m_count;
@@ -311,6 +331,7 @@ private:
         }
 
         // node->left != nullptr and node->right != nullptr
+        assert(node->left && node->right);
         Node *successor = new Node(minimum(node->right));
         m_count++;
 
