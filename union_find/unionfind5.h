@@ -39,7 +39,7 @@ public:
         // }
         if (p != m_parent[p])
             m_parent[p] = find(m_parent[p]);
-        return p;
+        return m_parent[p];
     }
 
     bool isConnected(int p, int q)
