@@ -44,6 +44,16 @@ public:
         }
     }
 
+    void show()
+    {
+        for (int i = 0; i < m_n; i++) // each vertex
+        {
+            for (int j = 0; j < m_g[i].size(); j++)
+                std::cout << m_g[i][j] << "\t";
+            std::cout << std::endl;
+        }
+    }
+
     class AdjIterator
     {
     private:

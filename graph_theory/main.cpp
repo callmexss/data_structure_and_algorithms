@@ -3,13 +3,14 @@
 
 #include "sparse_graph.h"
 #include "dense_graph.h"
+#include "read_graph.h"
 
 using namespace std;
 
 int main()
 {
-    int N = 20;
-    int M = 100;
+    int N = 0;
+    int M = 0;
 
     srand(time(NULL));
 
@@ -52,6 +53,18 @@ int main()
             cout << w << " ";
         cout << endl;
     }
-    
+
+    string filename = "testG1.txt";
+    SparseGraph g3(13, false);
+    ReadGraph<SparseGraph> rg(g3, filename);
+    g3.show();
+
+    cout << endl;
+
+    DenseGraph g4(13, false);
+    ReadGraph<DenseGraph> rg1(g4, filename);
+    g4.show();
+
+
     return 0;
 }

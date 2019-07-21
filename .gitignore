@@ -6,3 +6,5 @@
 *.obj
 *.lock
 *.idea
+*.txt
+*.log

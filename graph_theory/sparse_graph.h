@@ -45,6 +45,17 @@ public:
         m_m++;
     }
 
+    void show()
+    {
+        for (int i = 0; i < m_n; i++)
+        {
+            std::cout << "vertex " << i << ": \t";
+            for (int j = 0; j < m_g[i].size(); j++)
+                std::cout << m_g[i][j] << "\t";
+            std::cout << std::endl;
+        }
+    }
+
     /**
      * Iterator to iterate the connected node of one vertex.
      */
